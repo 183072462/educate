@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix'=>'admin'],function(){
+	//后台登录页面
+	Route::get('public/login','Admin\PublicController@login');
 });
