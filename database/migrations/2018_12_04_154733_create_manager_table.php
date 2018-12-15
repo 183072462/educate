@@ -25,7 +25,7 @@ class CreateManagerTable extends Migration
             $table->tinyInteger('role_id');//角色表中的主键id
             $table->timestamps();//created_at和updated_at时间字段（系统自己创建）
             $table->rememberToken();//实现记住登录状态字段，用于存储token
-            $table->enum('status',[1,2])->notNull->default('2');//账号状态1=禁用，2=启用
+            $table->enum('status',[1,2])->notNull()->default('2');//账号状态1=禁用，2=启用
         });
     }
 

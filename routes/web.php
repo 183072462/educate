@@ -12,5 +12,15 @@
 */
 Route::group(['prefix'=>'admin'],function(){
 	//后台登录页面
-	Route::get('public/login','Admin\PublicController@login');
+	Route::get('public/login','Admin\PublicController@login')->name('login');
+		//后台退出登录页面
+	Route::get('public/logout','Admin\PublicController@logout');
+	//后台验证登录
+	Route::post('public/check','Admin\PublicController@check');
+});
+Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
+	//后台首页
+	Route::get('index/index','Admin\IndexController@index');
+		//后台首页
+	Route::get('index/welcome','Admin\IndexController@welcome');
 });

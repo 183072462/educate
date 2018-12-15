@@ -17,8 +17,9 @@
 <!--[if IE 6]>
 <script type="text/javascript" src="{{asset('public/admin/lib')}}/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
+<script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>后台登录 - H-ui.admin v3.1</title>
+<title>吉祥教育系统后台登录</title>
 <meta name="keywords" content="吉祥教育系统后台">
 <meta name="description" content="吉祥教育后台系统。">
 </head>
@@ -26,29 +27,30 @@
 <input type="hidden" id="TenantId" name="TenantId" value="" />
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
-    <form class="form form-horizontal" action="index.html" method="post">
+    <form class="form form-horizontal" action="/admin/public/check" method="post">
+    {{csrf_field()}}
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="" type="text" placeholder="账户" class="input-text size-L">
+          <input id="" name="username" type="text" placeholder="账户" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="" type="password" placeholder="密码" class="input-text size-L">
+          <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
       <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe63f;</i></label>
         <div class="formControls col-xs-8">
-          <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+          <input name="captcha" class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
           <img src="{{Captcha::src()}}" id="yzmimg"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
           <label for="online">
-            <input type="checkbox" name="online" id="online" value="">
+            <input type="checkbox" name="online" id="online" value="1">
             使我保持登录状态</label>
         </div>
       </div>
@@ -64,14 +66,26 @@
 <div class="footer">吉祥教育后台管理系统</div>
 <script type="text/javascript" src="{{asset('public/admin/lib')}}/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="{{asset('public/admin/static')}}/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="{{asset('public/admin/lib')}}/layer/2.4/layer.js"></script> 
+
 <script type="text/javascript">
+
+
 $(function(){
   var src=$("img").attr('src');
   $("#kanbuq").click(function(){
     var srcc=src+Math.random();
     $("img").attr('src',srcc);
   });
+
+  @if(count($errors)>0)
+  var allerror='';
+  @foreach ($errors->all() as $error)
+   allerror+="{{$error}}";
+  @endforeach();
+  layer.alert(allerror,{title:'错误信息',icon:5,skin:'layer-ext-moon'});
+  @endif
 });
 </script>
 </body>
-</html>
+ </html>
